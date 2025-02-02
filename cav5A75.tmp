@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c75e20vkunxwl"]
+
+[ext_resource type="Script" path="res://isometric_camera.gd" id="1_0eciy"]
+[ext_resource type="PackedScene" uid="uid://croj2qsuc6fpe" path="res://BakedTree.fbx" id="1_uslmi"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0tupr"]
+size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj3en"]
+albedo_color = Color(0.218767, 0.23111, 0.286403, 1)
+
+[sub_resource type="Environment" id="Environment_1n02v"]
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.438885, 0.555479, 0.735491, 1)
+fog_density = 0.02
+
+[node name="Main" type="Node3D"]
+
+[node name="Cave" type="Node3D" parent="."]
+
+[node name="CaveFloor" type="MeshInstance3D" parent="Cave"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0tupr")
+surface_material_override/0 = SubResource("StandardMaterial3D_xj3en")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="GlowLight" type="OmniLight3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16465, 1, -3.36523)
+light_color = Color(0.548813, 0.882746, 0.384613, 1)
+light_energy = 3.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Cave"]
+environment = SubResource("Environment_1n02v")
+
+[node name="BakedTree" parent="Cave" instance=ExtResource("1_uslmi")]
+transform = Transform3D(0.0238468, 0, 0.488631, 0, 0.489213, 0, -0.488631, 0, 0.0238468, -0.154765, 0.296083, -3.37603)
+
+[node name="IsometricCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 5, 0)
+fov = 30.0
+near = 0.1
+far = 100.0
+script = ExtResource("1_0eciy")
+move_speed = null
+edge_scroll_speed = null
+screen_edge_margin = null

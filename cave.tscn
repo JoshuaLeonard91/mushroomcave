@@ -1,0 +1,278 @@
+[gd_scene load_steps=26 format=3 uid="uid://c75e20vkunxwl"]
+
+[ext_resource type="Script" path="res://isometric_camera.gd" id="1_0eciy"]
+[ext_resource type="Shader" path="res://waterShader.gdshader" id="1_s8qsi"]
+[ext_resource type="Shader" path="res://Leaves/Wind.gdshader" id="3_0oinf"]
+[ext_resource type="Shader" path="res://waterShaderv2.gdshader" id="3_i6cht"]
+[ext_resource type="ArrayMesh" uid="uid://bmmousvhvxae7" path="res://Leaves/NewTree.obj" id="3_mt7kq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0tupr"]
+size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj3en"]
+albedo_color = Color(0.218767, 0.23111, 0.286403, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1mpy"]
+render_priority = 0
+shader = ExtResource("1_s8qsi")
+shader_parameter/water_color = Color(0, 0.3, 0.5, 1)
+shader_parameter/valley_color = Color(0, 0.2, 0.4, 1)
+shader_parameter/peak_color = Color(0, 0.4, 0.7, 1)
+shader_parameter/foam_peak_threshold = 0.85
+shader_parameter/foam_valley_threshold = 0.15
+shader_parameter/foam_color = Color(0.95, 0.95, 0.9, 1)
+shader_parameter/foam_depth_range = 0.15
+shader_parameter/foam_slope_start = 0.3
+shader_parameter/foam_slope_end = 0.6
+shader_parameter/foam_noise_scale = 8.0
+shader_parameter/foam_speed = 0.15
+shader_parameter/glow_color = Color(0, 0.5, 1, 1)
+shader_parameter/emission_strength = 1.5
+shader_parameter/env_light_factor = 1.0
+shader_parameter/slope_factor = 10.0
+shader_parameter/wave_amplitude = 0.5
+shader_parameter/wave_frequency1 = 2.415
+shader_parameter/wave_frequency2 = 2.975
+shader_parameter/wave_speed1 = 1.0
+shader_parameter/wave_speed2 = 1.2
+shader_parameter/wave_dir1 = Vector2(1, -1)
+shader_parameter/wave_dir2 = Vector2(-1, -1)
+shader_parameter/noise_speed = 0.2
+shader_parameter/noise_scale = 3.0
+shader_parameter/warp_amplitude = 0.1
+shader_parameter/warp_frequency = 1.0
+shader_parameter/use_domain_warp = true
+shader_parameter/use_uv_for_waves = true
+shader_parameter/water_width = 5.0
+shader_parameter/color_deep = null
+shader_parameter/color_shallow = null
+shader_parameter/depth_distance = 4.0
+shader_parameter/beers_law_factor = 12.0
+shader_parameter/water_transparency = 0.05
+shader_parameter/edge_margin = 0.05
+shader_parameter/edge_falloff = 0.1
+shader_parameter/apply_displacement = true
+shader_parameter/DisplacementToggle = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g0585"]
+lightmap_size_hint = Vector2i(27, 27)
+material = SubResource("ShaderMaterial_r1mpy")
+size = Vector2(5, 5)
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="Gradient" id="Gradient_v8dyl"]
+offsets = PackedFloat32Array(0.736111, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a3kif"]
+noise_type = 3
+frequency = 0.0164
+offset = Vector3(758.62, 206.9, 0)
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_he5kt"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.32
+color_ramp = SubResource("Gradient_v8dyl")
+noise = SubResource("FastNoiseLite_a3kif")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uj7nb"]
+noise_type = 3
+frequency = 0.0118
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_akj1g"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.55
+noise = SubResource("FastNoiseLite_uj7nb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ne3i"]
+render_priority = 0
+shader = ExtResource("3_i6cht")
+shader_parameter/water_color = Color(1.05888e-06, 0.47252, 0.769713, 1)
+shader_parameter/valley_color = Color(0, 0, 0, 1)
+shader_parameter/peak_color = Color(0.947958, 0.972765, 1, 1)
+shader_parameter/foam_peak_threshold = 0.85
+shader_parameter/foam_valley_threshold = 0.15
+shader_parameter/foam_color = Color(0.253373, 0.680736, 0.950473, 1)
+shader_parameter/foam_depth_range = 1.435
+shader_parameter/foam_slope_start = 1.475
+shader_parameter/foam_slope_end = 1.335
+shader_parameter/foam_noise_scale = 6.9
+shader_parameter/foam_speed = 0.15
+shader_parameter/glow_color = Color(0, 0.5, 1, 1)
+shader_parameter/emission_strength = 0.61
+shader_parameter/env_light_factor = 1.92
+shader_parameter/slope_factor = 10.0
+shader_parameter/wave_amplitude = 0.09
+shader_parameter/wave_frequency1 = 2.415
+shader_parameter/wave_frequency2 = 2.975
+shader_parameter/wave_speed1 = 1.0
+shader_parameter/wave_speed2 = 1.2
+shader_parameter/wave_dir1 = Vector2(1, -1)
+shader_parameter/wave_dir2 = Vector2(-1, -1)
+shader_parameter/noise_speed = 0.245
+shader_parameter/noise_scale = 7.23
+shader_parameter/warp_amplitude = 0.06
+shader_parameter/warp_frequency = 0.98
+shader_parameter/use_domain_warp = true
+shader_parameter/use_uv_for_waves = true
+shader_parameter/water_width = 5.0
+shader_parameter/color_deep = Color(0, 0, 0, 1)
+shader_parameter/color_shallow = Color(0.246673, 0.789644, 0.925362, 1)
+shader_parameter/depth_distance = 4.0
+shader_parameter/beers_law_factor = 12.0
+shader_parameter/water_transparency = 0.0
+shader_parameter/edge_margin = 0.0
+shader_parameter/edge_falloff = 0.0
+shader_parameter/apply_displacement = true
+shader_parameter/DisplacementToggle = 1.0
+shader_parameter/foam_noise_texture = SubResource("NoiseTexture2D_he5kt")
+shader_parameter/wave_noise_texture = SubResource("NoiseTexture2D_akj1g")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g1umn"]
+material = SubResource("ShaderMaterial_7ne3i")
+size = Vector2(20, 20)
+subdivide_width = 400
+subdivide_depth = 400
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_n41db"]
+
+[sub_resource type="Sky" id="Sky_gk7vh"]
+sky_material = SubResource("PhysicalSkyMaterial_n41db")
+
+[sub_resource type="Environment" id="Environment_lrhf3"]
+background_mode = 2
+background_energy_multiplier = 0.16
+sky = SubResource("Sky_gk7vh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yff5n"]
+render_priority = 0
+shader = ExtResource("3_0oinf")
+shader_parameter/wind_strength = 0.1
+shader_parameter/wind_speed = 2.0
+shader_parameter/wind_frequency = 5.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iathq"]
+noise_type = 3
+frequency = 0.0373
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ssyx8"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.7
+noise = SubResource("FastNoiseLite_iathq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pqkgx"]
+render_priority = 0
+shader = ExtResource("3_i6cht")
+shader_parameter/water_color = Color(0.298507, 0.681216, 0.999998, 1)
+shader_parameter/valley_color = Color(3.60981e-08, 0.131564, 0.277889, 1)
+shader_parameter/peak_color = Color(1, 1, 1, 1)
+shader_parameter/foam_peak_threshold = 0.85
+shader_parameter/foam_valley_threshold = 0.15
+shader_parameter/foam_color = Color(0.95, 0.95, 0.9, 1)
+shader_parameter/foam_depth_range = 0.15
+shader_parameter/foam_slope_start = 0.3
+shader_parameter/foam_slope_end = 0.6
+shader_parameter/foam_noise_scale = 8.0
+shader_parameter/foam_speed = 0.15
+shader_parameter/glow_color = Color(0, 0.249126, 0.523131, 1)
+shader_parameter/emission_strength = 1.5
+shader_parameter/env_light_factor = 1.0
+shader_parameter/slope_factor = 10.0
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_frequency1 = 7.095
+shader_parameter/wave_frequency2 = 7.71
+shader_parameter/wave_speed1 = 0.995
+shader_parameter/wave_speed2 = 1.2
+shader_parameter/wave_dir1 = Vector2(1, -1)
+shader_parameter/wave_dir2 = Vector2(-1, -1)
+shader_parameter/noise_speed = 0.01
+shader_parameter/noise_scale = 2.0
+shader_parameter/warp_amplitude = 0.065
+shader_parameter/warp_frequency = 0.655
+shader_parameter/use_domain_warp = true
+shader_parameter/use_uv_for_waves = true
+shader_parameter/water_width = 5.0
+shader_parameter/color_deep = Color(0.355314, 0.355314, 0.355314, 1)
+shader_parameter/color_shallow = Color(0.470076, 0.470076, 0.470076, 1)
+shader_parameter/depth_distance = 4.0
+shader_parameter/beers_law_factor = 12.0
+shader_parameter/water_transparency = 0.0
+shader_parameter/edge_margin = 0.0
+shader_parameter/edge_falloff = 0.0
+shader_parameter/apply_displacement = true
+shader_parameter/DisplacementToggle = 1.0
+shader_parameter/wave_noise_texture = SubResource("NoiseTexture2D_ssyx8")
+
+[sub_resource type="BoxMesh" id="BoxMesh_v2uaj"]
+material = SubResource("ShaderMaterial_pqkgx")
+size = Vector3(5, 0.3, 5)
+subdivide_width = 200
+subdivide_height = 200
+subdivide_depth = 200
+
+[sub_resource type="BoxMesh" id="BoxMesh_hm8w5"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Cave" type="Node3D" parent="."]
+
+[node name="CaveFloor" type="MeshInstance3D" parent="Cave"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.82135, -6.29462, 0.0358849)
+visible = false
+mesh = SubResource("PlaneMesh_0tupr")
+surface_material_override/0 = SubResource("StandardMaterial3D_xj3en")
+
+[node name="GlowLight" type="OmniLight3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.2585, 1, -21.4731)
+visible = false
+light_color = Color(0.548813, 0.882746, 0.384613, 1)
+light_energy = 3.0
+shadow_enabled = true
+
+[node name="BioluminescentCaveWater" type="MeshInstance3D" parent="Cave"]
+transform = Transform3D(3.81189, 0, 0, 0, 1.41904, 0, 0, 0, 3.55154, 0.152315, 2.12537, -4.76559)
+visible = false
+mesh = SubResource("PlaneMesh_g0585")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1038, -0.91529, -4.95951)
+mesh = SubResource("PlaneMesh_g1umn")
+skeleton = NodePath("../..")
+
+[node name="WaterMeshNode" type="Node3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4082, -25.5257)
+
+[node name="IsometricCamera" type="Camera3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
+fov = 30.0
+near = 0.1
+far = 100.0
+script = ExtResource("1_0eciy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Cave"]
+environment = SubResource("Environment_lrhf3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Cave"]
+transform = Transform3D(1, 0, 0, 0, 0.718041, 0.696, 0, -0.696, 0.718041, 1.59529, 9.65111, 4.10447)
+light_color = Color(0.951435, 0.744455, 0.651053, 1)
+light_energy = 2.093
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+
+[node name="NewTree" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.353397, 0, 0, 0, 0.353397, 0, 0, 0, 0.353397, 1.43136, -4.81541, -10.0112)
+visible = false
+material_override = SubResource("ShaderMaterial_yff5n")
+mesh = ExtResource("3_mt7kq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.11423, -0.945972, 10.6757)
+mesh = SubResource("BoxMesh_v2uaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.532049, 0.166765, 0.830128, -3.60328e-09, 0.980412, -0.196956, -0.846714, -0.10479, -0.521627, -9.92018, -1.36344, 10.5818)
+mesh = SubResource("BoxMesh_hm8w5")
